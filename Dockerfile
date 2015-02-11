@@ -22,4 +22,13 @@ ADD snort.conf /etc/snort/snort.conf
 # install pulledpork
 RUN apt-get install -y libcrypt-ssleay-perl liblwp-useragent-determined-perl
 
+RUN wget https://pulledpork.googlecode.com/files/pulledpork-0.7.0.tar.gz
+RUN tar xvfvz pulledpork-0.7.0.tar.gz
+RUN cp pulledpork-0.7.0/pulledpork.pl /usr/local/bin
+RUN chmod +x /usr/local/bin/pulledpork.pl
+RUN cp pulledpork-0.7.0/etc/*.conf /etc/snort
 
+RUN mkdir /etc/snort/rules/iplists
+RUN touch /etc/snort/rules/iplists/default.blacklist
+
+ADD pulledpork.conf /etc/snort/pulledpork.conf
